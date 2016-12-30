@@ -1,6 +1,6 @@
 {
   "name": "react-native-icloudstore",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Drop-in replacement for AsyncStorage that uses iCloud ubiquitous key-value store.",
   "main": "index.js",
   "scripts": {
