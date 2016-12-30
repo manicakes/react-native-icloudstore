@@ -6,9 +6,9 @@ A drop in replacement for [React Native](https://github.com/facebook/react-nativ
 
 ## Usage
 
-For this to work, you must enable iCloud is switched on as well as make sure that the `Key-value storage` option is checked. These are found under your target's Capabilities tab in Xcode.
+For this to work, you must make sure that iCloud is switched on as well as make sure that the `Key-value storage` option is checked. These are found under your target's Capabilities tab in Xcode.
 
-API is the same as [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). There is one additional feature: a native event (`iCloudStoreDidChangeRemotely`) that lets you know when your store changes due to a remote change (i.e. from another device on the same iCloud account). See the example below for how to make use of that in your React Native component.
+The API is the same as [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). There is one additional feature: a native event (`iCloudStoreDidChangeRemotely`) that lets you know when your store changes due to a remote change (i.e. from another device on the same iCloud account). See the example below for a very basic way to make use of that in your React Native application. For apps that use redux, you may want to call an action upon receiving the event.
 
 ```javascript
 import iCloudStorage from 'react-native-icloudstore';
@@ -24,8 +24,11 @@ import iCloudStorage from 'react-native-icloudstore';
     this.eventEmitter.remove();
   }
 
-  loadData = () => {
-    iCloudStorage.getItem(MY_STORAGE_KEY).then(result => this.setState({ storage: result }));
+  loadData = (userInfo) => {
+    const changedKeys = userInfo.changedKeys;
+    if (changedKeys != null && changedKeys.includes(MY_STORAGE_KEY)) {
+      iCloudStorage.getItem(MY_STORAGE_KEY).then(result => this.setState({ storage: result }));
+    }
   }
 ```
 

@@ -10,14 +10,22 @@
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 
-static NSString* const ICLOUDSTORAGE_PREFIX = @"@com.manicakes.iCloudStorage";
+static NSString* const ICLOUDSTORAGE_PREFIX = @"@com.manicakes.iCloudStorage/";
 static NSString* const ICLOUD_STORE_CHANGED = @"ICLOUD_STORE_CHANGED";
 static NSString* const kStoreChangedEvent = @"iCloudStoreDidChangeRemotely";
+static NSString* const kChangedKeys = @"changedKeys";
 
 @implementation iCloudStorage
 
 + (NSString*)appendPrefixToKey:(NSString*)key {
-  return [NSString stringWithFormat:@"%@/%@", ICLOUDSTORAGE_PREFIX, key];
+  return [NSString stringWithFormat:@"%@%@", ICLOUDSTORAGE_PREFIX, key];
+}
+
++ (NSString*)removePrefixFromKey:(NSString*)key {
+  if (![key hasPrefix:ICLOUDSTORAGE_PREFIX]) {
+    return nil;
+  }
+  return [key substringFromIndex:[ICLOUDSTORAGE_PREFIX length]];
 }
 
 + (NSDictionary*)storeDictionary {
@@ -114,13 +122,24 @@ static NSString* const kStoreChangedEvent = @"iCloudStoreDidChangeRemotely";
   return @[ kStoreChangedEvent ];
 }
 
-- (void) ubiquitousStoreUpdated:(id)userInfo {
-  NSLog(@"Changed! %@", userInfo);
-  NSDictionary* body = @{};
-  
+- (void) ubiquitousStoreUpdated:(NSNotification*)notification {
   // if this notification comes in before bridge has initialized,
   // don't try to send the event (app crashes if you do).
-  if (self.bridge) {
+  if (!self.bridge) {
+    return;
+  }
+  
+  NSArray* changedKeys = [[notification userInfo] objectForKey:NSUbiquitousKeyValueStoreChangedKeysKey];
+  NSMutableArray* reportedChangedKeys = [NSMutableArray array];
+  for (NSString* key in changedKeys) {
+    NSString* reportedKey = [iCloudStorage removePrefixFromKey:key];
+    if (reportedKey) {
+      [reportedChangedKeys addObject:reportedKey];
+    }
+  }
+  
+  if ([reportedChangedKeys count]) {
+    NSDictionary* body = @{ kChangedKeys : reportedChangedKeys };
     [self sendEventWithName:kStoreChangedEvent body:body];
   }
 }
