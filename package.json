@@ -14,7 +14,7 @@
     "react-native",
     "icloud"
   ],
-  "author": "Mani Ghasemlou",
+  "author": "Mani Ghasemlou <mani.ghasemlou@icloud.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/manicakes/react-native-icloudstore/issues"
