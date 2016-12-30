@@ -1,4 +1,4 @@
-# react-native-icloudstore
+# react-native-icloudstore 📱☁️📱
 
 [![npm version](https://badge.fury.io/js/react-native-icloudstore.svg)](http://badge.fury.io/js/react-native-icloudstore)
 
