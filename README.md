@@ -11,6 +11,7 @@ For this to work, you must make sure that iCloud is switched on as well as make 
 The API is the same as [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). There is one additional feature: a native event (`iCloudStoreDidChangeRemotely`) that lets you know when your store changes due to a remote change (i.e. from another device on the same iCloud account). See the example below for a very basic way to make use of that in your React Native application. For apps that use redux, you may want to call an action upon receiving the event.
 
 ```javascript
+import { NativeEventEmitter } from 'react-native';
 import iCloudStorage from 'react-native-icloudstore';
 
 ...
