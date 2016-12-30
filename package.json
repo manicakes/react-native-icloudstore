@@ -1,0 +1,23 @@
+{
+  "name": "react-native-icloudstore",
+  "version": "0.4.0",
+  "description": "Drop-in replacement for AsyncStorage that uses iCloud ubiquitous key-value store.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manicakes/react-native-icloudstore.git"
+  },
+  "keywords": [
+    "react-native",
+    "icloud"
+  ],
+  "author": "Mani Ghasemlou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manicakes/react-native-icloudstore/issues"
+  },
+  "homepage": "https://github.com/manicakes/react-native-icloudstore#readme"
+}
