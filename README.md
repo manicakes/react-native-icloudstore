@@ -87,3 +87,8 @@ Run your project (Cmd+R)
 
 Android isn't supported - importing will simply return `AsyncStorage` so your app should continue to work.
 
+## Feedback
+
+Questions? Comments? Feel free to [email me](mailto:mani.ghasemlou@icloud.com). 
+
+If you have an issue, please create an issue under the "Issues" tab above. Or, feel free to issue a pull request. 🤓
