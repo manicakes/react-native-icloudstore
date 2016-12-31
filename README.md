@@ -32,7 +32,7 @@ import iCloudStorage from 'react-native-icloudstore';
     }
   }
   
-  ...
+...
   
 ```
 
