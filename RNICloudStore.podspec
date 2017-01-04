@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/manicakes/react-native-icloudstore.git" }
 
-  s.source_files  = "RNICloudStore/*.{h,m}"
+  s.source_files  = "*.{h,m}"
 
   s.dependency 'React'
 

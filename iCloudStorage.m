@@ -190,19 +190,26 @@ RCT_REMAP_METHOD(clear, clearResolver:(RCTPromiseResolveBlock)resolve
 
 RCT_REMAP_METHOD(getAllKeys, getAllKeysResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject) {
-  resolve([[iCloudStorage allKeysInStore]
-           filteredArrayUsingPredicate:[NSPredicate
-                                        predicateWithBlock:^BOOL(id  _Nullable evaluatedObject,
-                                                                 NSDictionary<NSString *,id> * _Nullable bindings) {
-    return [((NSString*)evaluatedObject) hasPrefix:ICLOUDSTORAGE_PREFIX];
-  }]]);
+  NSMutableArray* allKeys = [NSMutableArray array];
+  
+  for (NSString* storeKey in [iCloudStorage allKeysInStore]) {
+    NSString* key = [iCloudStorage removePrefixFromKey:storeKey];
+    if (key != nil) {
+      [allKeys addObject:key];
+    }
+  }
+  
+  resolve(allKeys);
 }
 
 RCT_EXPORT_METHOD(multiGet: (NSArray*)keys resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
   NSMutableArray *result = [NSMutableArray arrayWithCapacity:[keys count]];
   for (NSString* key in keys) {
-    [result addObject:[iCloudStorage getObjectForKey:key]];
+    NSObject* object = [iCloudStorage getObjectForKey:key];
+    if (object != nil) {
+      [result addObject:object];
+    }
   }
   
   resolve(result);
