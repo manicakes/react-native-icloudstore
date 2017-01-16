@@ -6,9 +6,9 @@ A drop in replacement for [React Native](https://github.com/facebook/react-nativ
 
 ## Usage
 
-For this to work, you must make sure that iCloud is switched on as well as make sure that the `Key-value storage` option is checked. These are found under your target's Capabilities tab in Xcode.
+In your target's "capabilities" tab in Xcode, make sure that iCloud is switched on as well as make sure that the "Key-value storage" option is checked.
 
-The API is the same as [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). There is one additional feature: a native event (`iCloudStoreDidChangeRemotely`) that lets you know when your store changes due to a remote change (i.e. from another device on the same iCloud account). See the example below for a very basic way to make use of that in your React Native application. For apps that use [redux](http://redux.js.org), you may want to call an appropriate [action creator](http://redux.js.org/docs/basics/Actions.html) upon receiving the event.
+`react-native-icloudstore` mimicks the same promise-based API as [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). In addition to all of the `AsyncStorage` methods, there is one additional feature: a native event (`iCloudStoreDidChangeRemotely`) that lets you know when your store changed due to a remote change (i.e. from another device on the same iCloud account). See the example below for a *very* basic way to make use of that in your React Native application. For apps that use [redux](http://redux.js.org), you may want to call an appropriate [action creator](http://redux.js.org/docs/basics/Actions.html) upon receiving the event.
 
 ```javascript
 import { NativeEventEmitter } from 'react-native';
@@ -31,6 +31,9 @@ import iCloudStorage from 'react-native-icloudstore';
       iCloudStorage.getItem('MY_STORAGE_KEY').then(result => this.setState({ storage: result }));
     }
   }
+  
+...
+  
 ```
 
 ## Install
@@ -84,3 +87,8 @@ Run your project (Cmd+R)
 
 Android isn't supported - importing will simply return `AsyncStorage` so your app should continue to work.
 
+## Feedback
+
+Questions? Comments? Feel free to [email me](mailto:mani.ghasemlou@icloud.com). 
+
+If you have an issue, please create an issue under the "Issues" tab above. Or, feel free to issue a pull request. 🤓
