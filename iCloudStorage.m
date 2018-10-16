@@ -118,6 +118,10 @@ static NSString* const kChangedKeys = @"changedKeys";
   return self;
 }
 
++(BOOL)requiresMainQueueSetup {
+    return YES;
+}
+
 - (NSArray<NSString *> *)supportedEvents {
   return @[ kStoreChangedEvent ];
 }
