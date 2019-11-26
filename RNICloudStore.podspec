@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
 
   s.license      = "MIT"
   s.authors      = { "Mani Ghasemlou" => "mani.ghasemlou@icloud.com" }
-  s.platform     = :ios, "7.0"
+  s.platforms     = {:ios => '7.0', :tvos => '11.0'}
 
   s.source       = { :git => "https://github.com/manicakes/react-native-icloudstore.git" }
 
