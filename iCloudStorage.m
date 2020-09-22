@@ -216,18 +216,19 @@ RCT_EXPORT_METHOD(multiGet: (NSArray*)keys resolver:(RCTPromiseResolveBlock)reso
   NSMutableArray *result = [NSMutableArray arrayWithCapacity:[keys count]];
   for (NSString* key in keys) {
     NSObject* object = [iCloudStorage getObjectForKey:key];
-    if (object != nil) {
-      [result addObject:object];
+    if (object == nil) {
+      object = [NSNull null];
     }
+    [result addObject:@[key, object]];
   }
   
   resolve(result);
 }
 
-RCT_EXPORT_METHOD(multiSet: (NSDictionary*)keyValuePairs resolver:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(multiSet: (NSArray<NSArray<NSString *> *> *)keyValuePairs resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
-  for (NSString* key in [keyValuePairs allKeys]) {
-    [iCloudStorage setValue:[keyValuePairs objectForKey:key] forKey:key];
+  for (NSArray<NSString *> *entry in keyValuePairs) {
+    [iCloudStorage setValue:entry[1] forKey:entry[0]];
   }
   resolve(@{});
 }
